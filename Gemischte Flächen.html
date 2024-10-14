@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abgestufte Hilfestellungen</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; }
+        h1 { color: #333; }
+        .hint { background-color: #f4f4f4; border-left: 5px solid #333; margin-bottom: 15px; padding: 10px; }
+        .hint-content { display: none; }
+        button { background-color: #4CAF50; border: none; color: white; cursor: pointer; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; transition-duration: 0.4s; }
+        button:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+    <h1>Hilfestellung: Wir finden eine Formel für die Berechnung der Kreisfläche</h1>
+    <div id="hints"></div>
+
+    <script>
+        const hints = [
+            "Tipp 1: Überlege, aus welchen Formen die große Form besteht.",
+            "Tipp 2: Zeichne die Teilformen ein und miss die Maße.",
+            "Tipp 3: Nutze die Formeln zur Berechnung des Flächeninhalts. Achte darauf, dass du bei Halbkreisen z.B. A noch :2 rechnest. ",
+            "Tipp 4: Du kennst bereits folgende Flächenformeln: A=a*b | A=g*h:2 | A=r^2+pi",
+            "Tipp 5: Rechteck: A=a*b | Dreieck: A=g(rundfläche)*h(öhe):2"
+        ];
+
+        const hintsContainer = document.getElementById('hints');
+
+        hints.forEach((hint, index) => {
+            const hintDiv = document.createElement('div');
+            hintDiv.className = 'hint';
+            hintDiv.innerHTML = `
+                <button onclick="toggleHint(${index})">Tipp ${index + 1} anzeigen</button>
+                <div id="hint${index}" class="hint-content">${hint}</div>
+            `;
+            hintsContainer.appendChild(hintDiv);
+        });
+
+        function toggleHint(index) {
+            const hintContent = document.getElementById(`hint${index}`);
+            if (hintContent.style.display === 'none' || hintContent.style.display === '') {
+                hintContent.style.display = 'block';
+            } else {
+                hintContent.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
