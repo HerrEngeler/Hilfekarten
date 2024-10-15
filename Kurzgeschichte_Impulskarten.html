@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impulskarten für Kurzgeschichten</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; }
+        h1 { color: #333; }
+        .category { background-color: #f4f4f4; border-left: 5px solid #333; margin-bottom: 15px; padding: 10px; }
+        .category-content, .impulse-content { display: none; }
+        button { background-color: #4CAF50; border: none; color: white; cursor: pointer; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; transition-duration: 0.4s; }
+        button:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+    <h1>Impulskarten für Kurzgeschichten: Geschichten für Drittklässler</h1>
+    <div id="categories"></div>
+    <script>
+        const categories = [
+            {
+                name: "Themen und Konflikte",
+                impulses: [
+                    "Neue Freundschaften schließen",
+                    "Angst vor der Dunkelheit überwinden",
+                    "Erste Verantwortung für ein Haustier",
+                    "Streit mit dem besten Freund / der besten Freundin",
+                    "Sich in der neuen Schule zurechtfinden",
+                    "Mut haben, etwas Neues auszuprobieren",
+                    "Ein verlorenes Spielzeug wiederfinden",
+                    "Jemandem helfen, der Hilfe braucht",
+                    "Ein Geheimnis bewahren",
+                    "Fair spielen lernen"
+                ]
+            },
+            {
+                name: "Hauptfiguren",
+                impulses: [
+                    "Neugierige/r Entdecker/in",
+                    "Schüchterne/r Neue/r in der Klasse",
+                    "Tierliebhaber/in",
+                    "Sportbegeisterte/r Fußballer/in",
+                    "Kreative/r Bastler/in",
+                    "Hilfsbereite/r Freund/in",
+                    "Mutiger/e Abenteurer/in",
+                    "Lustige/r Geschichtenerzähler/in",
+                    "Fleißige/r Lerner/in",
+                    "Träumer/in mit großer Fantasie"
+                ]
+            },
+            {
+                name: "Nebenfiguren",
+                impulses: [
+                    "Freundliche/r Lehrer/in",
+                    "Liebevolle Großeltern",
+                    "Neugierige/r kleine/r Bruder / Schwester",
+                    "Hilfreiche/r Schulfreund/in",
+                    "Netter Nachbarshund",
+                    "Lustiger Klassenkamerad",
+                    "Verständnisvolle Eltern",
+                    "Kluges älteres Kind",
+                    "Geheimnisvolle/r neue/r Nachbar/in",
+                    "Freundlicher Bibliotheksmitarbeiter"
+                ]
+            },
+            {
+                name: "Orte",
+                impulses: [
+                    "Spielplatz in der Nachbarschaft",
+                    "Grundschulklassenzimmer",
+                    "Gemütliches Baumhaus",
+                    "Spannender Dachboden",
+                    "Bunter Schulhof",
+                    "Geheimnisvoller Garten",
+                    "Kinderfreundliches Museum",
+                    "Spaßiges Schwimmbad",
+                    "Aufregende Zirkusmanege",
+                    "Gemütliches Kinderzimmer"
+                ]
+            },
+            {
+                name: "Handlungselemente",
+                impulses: [
+                    "Fund eines geheimnisvollen Briefes",
+                    "Unerwarteter Regenschauer beim Spielen",
+                    "Verlust eines Lieblingsspielzeugs",
+                    "Planung einer Überraschung für einen Freund",
+                    "Entdeckung eines verlassenen Tierhabys",
+                    "Teilnahme an einem spannenden Schulwettbewerb",
+                    "Vorbereitung auf den ersten Schulausflug",
+                    "Lösen eines kleinen Rätsels oder Geheimnisses",
+                    "Erlernen einer neuen Fähigkeit (z.B. Fahrradfahren)",
+                    "Organisieren eines Kuchenverkaufs für einen guten Zweck"
+                ]
+            },
+            {
+                name: "'Was wäre wenn...'-Fragen",
+                impulses: [
+                    "Was wäre, wenn dein Kuscheltier zum Leben erwachen würde?",
+                    "Was wäre, wenn du einen Tag lang unsichtbar wärst?",
+                    "Was wäre, wenn du mit Tieren sprechen könntest?",
+                    "Was wäre, wenn es in deinem Garten einen Eingang zu einer Zauberwelt gäbe?",
+                    "Was wäre, wenn du einen Wunsch frei hättest?",
+                    "Was wäre, wenn du einen Tag lang so groß wie ein Erwachsener wärst?",
+                    "Was wäre, wenn du eine Zeitmaschine hättest?",
+                    "Was wäre, wenn dein Essen plötzlich anfangen würde zu singen?",
+                    "Was wäre, wenn du in einem Baumhaus leben würdest?",
+                    "Was wäre, wenn du einen Tag lang der/die Lehrer/in in deiner Klasse wärst?"
+                ]
+            }
+        ];
+
+        const categoriesContainer = document.getElementById('categories');
+        categories.forEach((category, categoryIndex) => {
+            const categoryDiv = document.createElement('div');
+            categoryDiv.className = 'category';
+            categoryDiv.innerHTML = `
+                <button onclick="toggleCategory(${categoryIndex})">${category.name}</button>
+                <div id="category${categoryIndex}" class="category-content">
+                    ${category.impulses.map((impulse, impulseIndex) => `
+                        <div class="impulse">
+                            <button onclick="toggleImpulse(${categoryIndex}, ${impulseIndex})">Impuls ${impulseIndex + 1}</button>
+                            <div id="impulse${categoryIndex}-${impulseIndex}" class="impulse-content">${impulse}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            categoriesContainer.appendChild(categoryDiv);
+        });
+
+        function toggleCategory(categoryIndex) {
+            const categoryContent = document.getElementById(`category${categoryIndex}`);
+            categoryContent.style.display = categoryContent.style.display === 'none' || categoryContent.style.display === '' ? 'block' : 'none';
+        }
+
+        function toggleImpulse(categoryIndex, impulseIndex) {
+            const impulseContent = document.getElementById(`impulse${categoryIndex}-${impulseIndex}`);
+            impulseContent.style.display = impulseContent.style.display === 'none' || impulseContent.style.display === '' ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>
